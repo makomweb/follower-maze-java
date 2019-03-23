@@ -1,4 +1,5 @@
 apply plugin: 'java'
+apply plugin: 'application'
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -18,3 +19,5 @@ jar {
     baseName = 'soundcloud-follower-maze'
     version = '0.1.0'
 }
+
+mainClassName = 'Program'
