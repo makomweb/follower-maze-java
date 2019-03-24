@@ -52,4 +52,26 @@ public class Event {
 				return Integer.parseInt(parts[3]);
 		}
 	}
+	
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder(String.format("%d|", getSequenceNumber()));
+		
+		EventType eventType = getEventType();
+		sb.append(String.format("%s|", eventType));
+		
+		if (eventType == EventType.BROADCAST) {
+			sb.append("-|");
+		} else {
+			sb.append(String.format("%d|", getFromUserId()));
+		}
+		
+		if (eventType == EventType.BROADCAST || eventType == EventType.STATUS_UPDATE) {
+			sb.append("-");
+		} else {
+			sb.append(String.format("%d", getToUserId()));
+		}
+		
+		return sb.toString();
+	}
 }

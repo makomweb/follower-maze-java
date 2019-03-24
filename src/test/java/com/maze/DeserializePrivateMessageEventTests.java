@@ -30,4 +30,10 @@ public class DeserializePrivateMessageEventTests {
 		Event event = new Event(raw);
 		assertEquals(56, event.getToUserId());
 	}
+	
+	@Test
+	public void Stringify_should_succeed() {
+		Event event = new Event(raw);
+		assertEquals("43|PRIVATE_MSG|32|56", event.toString());
+	}
 }

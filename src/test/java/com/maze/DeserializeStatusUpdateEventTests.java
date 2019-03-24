@@ -30,4 +30,10 @@ public class DeserializeStatusUpdateEventTests {
 		Event event = new Event(raw);
 		int toUserId = event.getToUserId();
 	}
+	
+	@Test
+	public void Stringify_should_succeed() {
+		Event event = new Event(raw);
+		assertEquals("634|STATUS_UPDATE|32|-", event.toString());
+	}
 }

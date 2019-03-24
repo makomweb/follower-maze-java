@@ -30,4 +30,10 @@ public class DeserializeFollowEventTests {
 		Event event = new Event(raw);
 		assertEquals(50, event.getToUserId());
 	}
+	
+	@Test
+	public void Stringify_should_succeed() {
+		Event event = new Event(raw);
+		assertEquals("666|FOLLOW|60|50", event.toString());
+	}
 }

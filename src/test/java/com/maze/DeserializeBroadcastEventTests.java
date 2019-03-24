@@ -30,4 +30,10 @@ public class DeserializeBroadcastEventTests {
 		Event event = new Event(raw);
 		int toUserId = event.getToUserId();
 	}
+	
+	@Test
+	public void Stringify_should_succeed() {
+		Event event = new Event(raw);
+		assertEquals("542532|BROADCAST|-|-", event.toString());
+	}
 }

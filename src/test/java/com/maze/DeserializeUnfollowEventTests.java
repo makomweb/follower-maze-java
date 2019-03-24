@@ -30,4 +30,10 @@ public class DeserializeUnfollowEventTests {
 		Event event = new Event(raw);
 		assertEquals(9, event.getToUserId());
 	}
+	
+	@Test
+	public void Stringify_should_succeed() {
+		Event event = new Event(raw);
+		assertEquals("1|UNFOLLOW|12|9", event.toString());
+	}
 }
