@@ -1,77 +1,20 @@
 package com.maze;
 
-import java.util.*;
+public abstract class Event implements Comparable<Event> {
+	private final int sequenceNumber;
 
-public class Event {
-	private final String[] parts;
-
-	private static final HashMap<String, EventType> eventTypes = new HashMap<String, EventType>() {
-		{
-			put("F", EventType.FOLLOW);
-			put("U", EventType.UNFOLLOW);
-			put("B", EventType.BROADCAST);
-			put("P", EventType.PRIVATE_MSG);
-			put("S", EventType.STATUS_UPDATE);
-		}
-	};
-
-	public Event(String raw) {
-		this(raw.split("\\|"));
-	}
-
-	public Event(String[] parts) {
-		this.parts = parts;
+	public Event(int sequenceNumber) {
+		this.sequenceNumber = sequenceNumber;
 	}
 
 	public int getSequenceNumber() {
-		return Integer.parseInt(parts[0]);
+		return sequenceNumber;
 	}
 
-	public EventType getEventType() {
-		return eventTypes.get(parts[1]);
-	}
-
-	public int getFromUserId() {
-		EventType eventType = getEventType();
-		
-		if (eventType == EventType.BROADCAST) {
-			throw new InvalidEventTypeException(eventType);
-		}
-
-		return Integer.parseInt(parts[2]);
-	}
-
-	public int getToUserId() {
-		EventType eventType = getEventType();
-		
-		switch (eventType) {
-			case BROADCAST:
-			case STATUS_UPDATE:
-				throw new InvalidEventTypeException(eventType);
-			default:
-				return Integer.parseInt(parts[3]);
-		}
-	}
-	
-	@Override
-	public String toString() {
-		StringBuilder sb = new StringBuilder(String.format("%d|", getSequenceNumber()));
-		
-		EventType eventType = getEventType();
-		sb.append(String.format("%s|", eventType));
-		
-		if (eventType == EventType.BROADCAST) {
-			sb.append("-|");
-		} else {
-			sb.append(String.format("%d|", getFromUserId()));
-		}
-		
-		if (eventType == EventType.BROADCAST || eventType == EventType.STATUS_UPDATE) {
-			sb.append("-");
-		} else {
-			sb.append(String.format("%d", getToUserId()));
-		}
-		
-		return sb.toString();
-	}
+    @Override
+    public int compareTo(Event other) {
+        return Integer.compare(getSequenceNumber(), other.getSequenceNumber());
+    }
+    
+    public abstract void raiseEvent(Users users);
 }
