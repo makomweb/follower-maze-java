@@ -14,10 +14,10 @@ dependencies {
 
 jar {
     manifest {
-        attributes 'Main-Class': 'Program'
+        attributes 'Main-Class': 'com.maze.Program'
     }
     baseName = 'soundcloud-follower-maze'
     version = '0.1.0'
 }
 
-mainClassName = 'Program'
+mainClassName = 'com.maze.Program'
