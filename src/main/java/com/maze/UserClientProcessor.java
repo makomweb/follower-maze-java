@@ -7,12 +7,12 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import com.maze.Logger;
 import com.maze.Users;
 
-public class AcceptUserClientProcessor implements Runnable {
+public class UserClientProcessor implements Runnable {
 	private final Socket socket;
     private final Users users;
     private final AtomicBoolean wasCancelled;
 
-    public AcceptUserClientProcessor(Socket socket, Users users, AtomicBoolean wasCancelled) {
+    public UserClientProcessor(Socket socket, Users users, AtomicBoolean wasCancelled) {
     	this.socket = socket;
         this.users = users;
         this.wasCancelled = wasCancelled;
