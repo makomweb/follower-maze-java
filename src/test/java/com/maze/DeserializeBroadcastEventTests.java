@@ -8,32 +8,20 @@ public class DeserializeBroadcastEventTests {
 	private final String raw = "542532|B";
 	
 	@Test
-	public void Providing_event_type_should_succeed() {
-		Event event = new Event(raw);
-		assertEquals(EventType.BROADCAST, event.getEventType());
+	public void Event_should_be_of_type_broadcast_event() {
+		Event event = EventDeserializer.Deserialize(raw);
+		assertTrue(event instanceof BroadcastEvent);
 	}
 	
 	@Test
 	public void Providing_sequence_number_should_succeed() {
-		Event event = new Event(raw);
+		Event event = EventDeserializer.Deserialize(raw);
 		assertEquals(542532, event.getSequenceNumber());
-	}
-	
-	@Test(expected = InvalidEventTypeException.class)
-	public void Providing_from_user_id_should_throw() {
-		Event event = new Event(raw);
-		int fromUserId = event.getFromUserId();
-	}
-
-	@Test(expected = InvalidEventTypeException.class)
-	public void Providing_to_user_id_should_throw() {
-		Event event = new Event(raw);
-		int toUserId = event.getToUserId();
 	}
 	
 	@Test
 	public void Stringify_should_succeed() {
-		Event event = new Event(raw);
-		assertEquals("542532|BROADCAST|-|-", event.toString());
+		Event event = EventDeserializer.Deserialize(raw);
+		assertEquals("542532|B", event.toString());
 	}
 }
