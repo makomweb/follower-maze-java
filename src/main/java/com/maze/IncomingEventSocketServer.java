@@ -11,8 +11,8 @@ public class IncomingEventSocketServer implements Runnable {
 
 	private final ServerSocket serverSocket;
 	private final ExecutorService threadPool;
-	private AtomicBoolean wasCancelled;
-	private Queue<Event> incomingEvents;
+	private final AtomicBoolean wasCancelled;
+	private final Queue<Event> incomingEvents;
 
 	IncomingEventSocketServer(ServerSocket serverSocket, ExecutorService threadPool, Queue<Event> incomingEvents, AtomicBoolean wasCancelled) {
 		this.serverSocket = serverSocket;
@@ -23,7 +23,7 @@ public class IncomingEventSocketServer implements Runnable {
 
 	@Override
 	public void run() {
-		while (true) {
+		while (!wasCancelled.get()) {
 			try {
 				Socket socket = serverSocket.accept();
 				IncomingEventProcessor processor = new IncomingEventProcessor(socket, incomingEvents, wasCancelled);

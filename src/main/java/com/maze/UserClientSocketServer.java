@@ -21,7 +21,7 @@ public class UserClientSocketServer implements Runnable {
 
 	@Override
 	public void run() {
-		while (true) {
+		while (!wasCancelled.get()) {
 			try {
 				Socket socket = serverSocket.accept();
 				UserClientProcessor processor = new UserClientProcessor(socket, users, wasCancelled);
