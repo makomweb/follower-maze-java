@@ -40,7 +40,6 @@ public class IncomingEventProcessor implements Runnable {
 			}
 
 			Event event = EventDeserializer.Deserialize(line);
-			// Logger.LogReceivedEvent(event);
 			eventQueue.add(event);
 		}
 	}
