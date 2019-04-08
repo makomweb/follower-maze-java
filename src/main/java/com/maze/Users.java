@@ -14,7 +14,7 @@ import com.maze.UnfollowEvent;
 public class Users {
     private final ConcurrentHashMap<Integer, User> users = new ConcurrentHashMap<Integer, User>();
 
-    public User get(int id) {
+    public synchronized User get(int id) {
     	if (!users.containsKey(id)) {
     		User offlineUser = new User(id, new PrintWriter(System.out));
     		users.put(id, offlineUser);
@@ -24,11 +24,11 @@ public class Users {
     	return users.get(id);
     }
     
-    public Collection<User> getAll() {
+    public synchronized Collection<User> getAll() {
         return users.values();
     }
 
-	public void add(int id, Socket socket) throws IOException {
+	public synchronized void add(int id, Socket socket) throws IOException {
 		OutputStream stream = socket.getOutputStream();
 		OutputStreamWriter streamWriter = new OutputStreamWriter(stream);
 		PrintWriter writer = new PrintWriter(streamWriter);
@@ -36,13 +36,13 @@ public class Users {
 		users.put(id, new User(id, writer));		
 	}
 
-	public void follow(int fromUserId, int toUserId, FollowEvent event) throws IOException {
+	public synchronized void follow(int fromUserId, int toUserId, FollowEvent event) throws IOException {
 		User to = get(toUserId);
 		to.addFollower(fromUserId);
 		to.consumeEvent(event);
 	}
 
-	public void unfollow(int fromUserId, int toUserId, UnfollowEvent event) {
+	public synchronized void unfollow(int fromUserId, int toUserId, UnfollowEvent event) {
 		User to = get(toUserId);
 		to.removeFollower(fromUserId);
 	}
