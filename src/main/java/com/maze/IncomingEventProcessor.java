@@ -28,7 +28,7 @@ public class IncomingEventProcessor implements Runnable {
 		}
 	}
 
-	public void process() throws IOException {
+	private void process() throws IOException {
 		InputStream stream = socket.getInputStream();
 		InputStreamReader streamReader = new InputStreamReader(stream);
 		BufferedReader reader = new BufferedReader(streamReader);

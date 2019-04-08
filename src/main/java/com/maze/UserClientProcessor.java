@@ -27,7 +27,7 @@ public class UserClientProcessor implements Runnable {
 		}		
 	}
 
-    public void process() throws IOException {
+    private void process() throws IOException {
         InputStream stream = socket.getInputStream();
 		InputStreamReader streamReader = new InputStreamReader(stream);
 		final BufferedReader reader = new BufferedReader(streamReader);
