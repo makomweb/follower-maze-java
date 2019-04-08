@@ -36,10 +36,6 @@ public class Users {
 		users.put(id, new User(id, writer));		
 	}
 
-	public void remove(int id) {
-		users.remove(id);		
-	}
-
 	public void follow(int fromUserId, int toUserId, FollowEvent event) throws IOException {
 		User to = get(toUserId);
 		to.addFollower(fromUserId);
@@ -49,6 +45,5 @@ public class Users {
 	public void unfollow(int fromUserId, int toUserId, UnfollowEvent event) {
 		User to = get(toUserId);
 		to.removeFollower(fromUserId);
-		//to.consumeEvent(event);
 	}
 }

@@ -10,7 +10,6 @@ import java.util.concurrent.PriorityBlockingQueue;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class Program {
-
     private static final AtomicBoolean wasCancelled = new AtomicBoolean(false);
     private static final Thread mainThread = Thread.currentThread();
     private static final Thread shutdownHook = new Thread() {
