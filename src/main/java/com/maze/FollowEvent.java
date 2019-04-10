@@ -30,7 +30,7 @@ public class FollowEvent extends Event {
 		try {
 			users.follow(fromUserId, toUserId, this);
 		} catch (IOException ex) {
-			Logger.LogException("follow() has thrown", ex);
+			Logger.logException("follow() has thrown", ex);
 		}
 	}
 }

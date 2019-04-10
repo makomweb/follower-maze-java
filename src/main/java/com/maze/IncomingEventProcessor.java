@@ -21,7 +21,7 @@ public class IncomingEventProcessor implements Runnable {
 		try {
 			process();
 		} catch (IOException ex) {
-			Logger.LogException("Caught exception while processing incoming events!", ex);
+			Logger.logException("Caught exception while processing incoming events!", ex);
 		}
 	}
 

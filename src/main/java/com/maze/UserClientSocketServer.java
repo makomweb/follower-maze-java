@@ -27,7 +27,7 @@ public class UserClientSocketServer implements Runnable {
 				UserClientProcessor processor = new UserClientProcessor(socket, users, wasCancelled);
 				threadPool.submit(processor);
 			} catch (IOException ex) {
-				Logger.LogException("Caught exception while accepting client connections!", ex);
+				Logger.logException("Caught exception while accepting client connections!", ex);
 			}
 		}
 	}

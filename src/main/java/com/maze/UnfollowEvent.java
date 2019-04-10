@@ -28,7 +28,7 @@ public class UnfollowEvent extends Event {
 		try {
 			users.unfollow(fromUserId, toUserId);
 		} catch (RuntimeException ex) {
-			Logger.LogException("unfollow() has thrown", ex);
+			Logger.logException("unfollow() has thrown", ex);
 		}
 	}
 }

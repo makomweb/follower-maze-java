@@ -20,7 +20,7 @@ public class UserClientProcessor implements Runnable {
 		try {
 			process();
 		} catch (IOException ex) {
-			Logger.LogException("Caught exception while processing incoming events!", ex);
+			Logger.logException("Caught exception while processing incoming events!", ex);
 		}
 	}
 
@@ -39,7 +39,7 @@ public class UserClientProcessor implements Runnable {
 				int id = Integer.parseInt(line);
 				users.add(id, socket);
 			} catch (RuntimeException ex) {
-				Logger.LogException("add() has thrown", ex);
+				Logger.logException("add() has thrown", ex);
 			}
 		}
 	}

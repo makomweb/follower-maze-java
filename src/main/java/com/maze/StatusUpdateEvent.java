@@ -23,7 +23,7 @@ public class StatusUpdateEvent extends Event {
 			User user = users.get(fromUserId);
 			user.notifyFollowers(this, users);
 		} catch (RuntimeException ex) {
-			Logger.LogException("notifyFollowers() has thrown", ex);
+			Logger.logException("notifyFollowers() has thrown", ex);
 		}
 	}
 }

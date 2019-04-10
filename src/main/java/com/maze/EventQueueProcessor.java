@@ -26,7 +26,7 @@ public class EventQueueProcessor implements Runnable {
 				try {
 					event.raiseEvent(users);
 				} catch (RuntimeException ex) {
-					Logger.LogException("raiseEvent() has thrown", ex);
+					Logger.logException("raiseEvent() has thrown", ex);
 				}
 			}
 		}

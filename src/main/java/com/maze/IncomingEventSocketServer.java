@@ -28,7 +28,7 @@ public class IncomingEventSocketServer implements Runnable {
 				IncomingEventProcessor processor = new IncomingEventProcessor(socket, incomingEvents, wasCancelled);
 				threadPool.submit(processor);
 			} catch (IOException ex) {
-				Logger.LogException("Caught exception while accepting incoming events!", ex);
+				Logger.logException("Caught exception while accepting incoming events!", ex);
 			}
 		}
 	}
