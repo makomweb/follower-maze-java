@@ -1,8 +1,5 @@
 package com.maze;
 
-import com.maze.Event;
-import com.maze.EventDeserializer;
-
 import java.io.*;
 import java.net.Socket;
 import java.util.Queue;

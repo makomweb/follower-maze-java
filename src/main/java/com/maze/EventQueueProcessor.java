@@ -7,7 +7,7 @@ public class EventQueueProcessor implements Runnable {
 	private final Users users;
 	private final Queue<Event> eventQueue;
 	private final AtomicBoolean wasCancelled;
-	int sequenceNumer = 1;
+	private int sequenceNumber = 1;
 
 	public EventQueueProcessor(Users users, Queue<Event> eventQueue, AtomicBoolean wasCancelled) {
 		this.users = users;
@@ -19,9 +19,9 @@ public class EventQueueProcessor implements Runnable {
 	public void run() {
 		while (!wasCancelled.get()) {
 			Event event = eventQueue.peek();
-			if (event != null && event.getSequenceNumber() <= sequenceNumer) {
+			if (event != null && event.getSequenceNumber() <= sequenceNumber) {
 				event = eventQueue.poll();
-				sequenceNumer++;
+				sequenceNumber++;
 
 				try {
 					event.raiseEvent(users);
