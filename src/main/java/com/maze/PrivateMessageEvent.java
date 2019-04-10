@@ -27,5 +27,6 @@ public class PrivateMessageEvent extends Event {
 	public void raiseEvent(Users users) {
 		User user = users.get(toUserId);
 		user.consumeEvent(this);
+		Logger.logEvent(this);
 	}
 }

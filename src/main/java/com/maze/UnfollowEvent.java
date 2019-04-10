@@ -26,5 +26,6 @@ public class UnfollowEvent extends Event {
 	@Override
 	public void raiseEvent(Users users) {
 		users.unfollow(fromUserId, toUserId);
+		Logger.logEvent(this);
 	}
 }

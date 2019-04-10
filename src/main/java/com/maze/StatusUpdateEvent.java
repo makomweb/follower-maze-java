@@ -22,6 +22,7 @@ public class StatusUpdateEvent extends Event {
 		try {
 			User user = users.get(fromUserId);
 			user.notifyFollowers(this, users);
+			Logger.logEvent(this);
 		} catch (RuntimeException ex) {
 			Logger.logException("notifyFollowers() has thrown", ex);
 		}

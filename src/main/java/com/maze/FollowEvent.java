@@ -26,5 +26,6 @@ public class FollowEvent extends Event {
 	@Override
 	public void raiseEvent(Users users) {
 		users.follow(fromUserId, toUserId, this);
+		Logger.logEvent(this);
 	}
 }

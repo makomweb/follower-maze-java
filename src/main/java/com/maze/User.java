@@ -27,7 +27,7 @@ public class User implements Comparable<User> {
 			User follower = users.get(id);
 			boolean success = follower.consumeEvent(event);
 			if (!success) {
-				Logger.LogErrorNotifyFollower(follower);
+				Logger.logErrorNotifyUser(follower);
 				followerIds.remove(follower.getId());
 			}
 		}

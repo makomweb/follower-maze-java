@@ -33,7 +33,7 @@ public class Users {
 		users.put(id, new User(id, writer));
 	}
 
-	public synchronized void follow(int fromUserId, int toUserId, FollowEvent event) throws IOException {
+	public synchronized void follow(int fromUserId, int toUserId, FollowEvent event) {
 		User to = get(toUserId);
 		to.addFollower(fromUserId);
 		to.consumeEvent(event);

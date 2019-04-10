@@ -15,5 +15,6 @@ public class BroadcastEvent extends Event {
 		for (User user : users.getAll()) {
 			user.consumeEvent(this);
 		}
+		Logger.logEvent(this);
 	}
 }

@@ -38,8 +38,9 @@ public class UserClientProcessor implements Runnable {
 			try {
 				int id = Integer.parseInt(line);
 				users.add(id, socket);
+				Logger.logAcceptedUser(id);
 			} catch (RuntimeException ex) {
-				Logger.logException("add() has thrown", ex);
+				Logger.logException("users.add() has thrown", ex);
 			}
 		}
 	}
