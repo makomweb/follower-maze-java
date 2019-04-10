@@ -15,6 +15,7 @@ The implementation was done using JAVA with the following tools:
 | Gradle | 4.10.2 |
 | Java | 10.0.2 2018-07-17 |
 | Eclipse | Oxygen.3a Release (4.7.3a) |
+| IntelliJ | Community Edition 2018.3.1 |
 | JUnit | 4.12 |
 
 Run 
