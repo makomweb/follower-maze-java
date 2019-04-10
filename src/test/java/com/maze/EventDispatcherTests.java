@@ -1,15 +1,12 @@
 package com.maze;
 
 import org.junit.Test;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
 import java.util.*;
+import static org.junit.Assert.assertEquals;
 
 public class EventDispatcherTests {
 	private Queue<Event> incomingEvents = new PriorityQueue<Event>();
-	private List<Event> rawEvents = new ArrayList() {
+	private List<Event> rawEvents = new ArrayList<Event>() {
 		{
 			add(EventDeserializer.Deserialize("1|B|2|3"));
 			add(EventDeserializer.Deserialize("3|B|2|3"));
