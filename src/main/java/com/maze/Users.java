@@ -12,28 +12,28 @@ import com.maze.FollowEvent;
 import com.maze.UnfollowEvent;
 
 public class Users {
-    private final ConcurrentHashMap<Integer, User> users = new ConcurrentHashMap<Integer, User>();
+	private final ConcurrentHashMap<Integer, User> users = new ConcurrentHashMap<Integer, User>();
 
-    public synchronized User get(int id) {
-    	if (!users.containsKey(id)) {
-    		User offlineUser = new User(id, new PrintWriter(System.out));
-    		users.put(id, offlineUser);
-    		return offlineUser;
-    	}
-    	
-    	return users.get(id);
-    }
-    
-    public synchronized Collection<User> getAll() {
-        return users.values();
-    }
+	public synchronized User get(int id) {
+		if (!users.containsKey(id)) {
+			User offlineUser = new User(id, new PrintWriter(System.out));
+			users.put(id, offlineUser);
+			return offlineUser;
+		}
+
+		return users.get(id);
+	}
+
+	public synchronized Collection<User> getAll() {
+		return users.values();
+	}
 
 	public synchronized void add(int id, Socket socket) throws IOException {
 		OutputStream stream = socket.getOutputStream();
 		OutputStreamWriter streamWriter = new OutputStreamWriter(stream);
 		PrintWriter writer = new PrintWriter(streamWriter);
-		
-		users.put(id, new User(id, writer));		
+
+		users.put(id, new User(id, writer));
 	}
 
 	public synchronized void follow(int fromUserId, int toUserId, FollowEvent event) throws IOException {

@@ -13,7 +13,7 @@ public class UnfollowEvent extends Event {
 	public int getFromUserId() {
 		return fromUserId;
 	}
-	
+
 	public int getToUserId() {
 		return toUserId;
 	}

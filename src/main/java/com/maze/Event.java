@@ -11,10 +11,10 @@ public abstract class Event implements Comparable<Event> {
 		return sequenceNumber;
 	}
 
-    @Override
-    public int compareTo(Event other) {
-        return Integer.compare(getSequenceNumber(), other.getSequenceNumber());
-    }
-    
-    public abstract void raiseEvent(Users users);
+	@Override
+	public int compareTo(Event other) {
+		return Integer.compare(getSequenceNumber(), other.getSequenceNumber());
+	}
+
+	public abstract void raiseEvent(Users users);
 }
