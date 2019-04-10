@@ -11,13 +11,13 @@ public class IncomingEventSocketServer implements Runnable {
 	private final ServerSocket serverSocket;
 	private final ExecutorService threadPool;
 	private final AtomicBoolean wasCancelled;
-	private final Queue<Event> incomingEvents;
+	private final Queue<Event> eventQueue;
 
-	IncomingEventSocketServer(ServerSocket serverSocket, ExecutorService threadPool, Queue<Event> incomingEvents, AtomicBoolean wasCancelled) {
+	IncomingEventSocketServer(ServerSocket serverSocket, ExecutorService threadPool, Queue<Event> eventQueue, AtomicBoolean wasCancelled) {
 		this.serverSocket = serverSocket;
 		this.threadPool = threadPool;
 		this.wasCancelled = wasCancelled;
-		this.incomingEvents = incomingEvents;
+		this.eventQueue = eventQueue;
 	}
 
 	@Override
@@ -25,7 +25,7 @@ public class IncomingEventSocketServer implements Runnable {
 		while (!wasCancelled.get()) {
 			try {
 				Socket socket = serverSocket.accept();
-				IncomingEventProcessor processor = new IncomingEventProcessor(socket, incomingEvents, wasCancelled);
+				IncomingEventProcessor processor = new IncomingEventProcessor(socket, eventQueue, wasCancelled);
 				threadPool.submit(processor);
 			} catch (IOException ex) {
 				Logger.logException("Caught exception while accepting incoming events!", ex);
