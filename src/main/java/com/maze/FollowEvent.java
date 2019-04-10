@@ -1,7 +1,5 @@
 package com.maze;
 
-import java.io.IOException;
-
 public class FollowEvent extends Event {
 	private final int fromUserId;
 	private final int toUserId;
@@ -27,10 +25,6 @@ public class FollowEvent extends Event {
 
 	@Override
 	public void raiseEvent(Users users) {
-		try {
-			users.follow(fromUserId, toUserId, this);
-		} catch (IOException ex) {
-			Logger.logException("follow() has thrown", ex);
-		}
+		users.follow(fromUserId, toUserId, this);
 	}
 }
