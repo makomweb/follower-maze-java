@@ -26,7 +26,7 @@ public class UnfollowEvent extends Event {
 	@Override
 	public void raiseEvent(Users users) {
 		try {
-			users.unfollow(fromUserId, toUserId, this);
+			users.unfollow(fromUserId, toUserId);
 		} catch (RuntimeException ex) {
 			Logger.LogException("unfollow() has thrown", ex);
 		}

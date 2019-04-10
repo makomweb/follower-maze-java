@@ -1,7 +1,5 @@
 package com.maze;
 
-import java.io.IOException;
-
 public class StatusUpdateEvent extends Event {
 	private final int fromUserId;
 
@@ -24,7 +22,7 @@ public class StatusUpdateEvent extends Event {
 		try {
 			User user = users.get(fromUserId);
 			user.notifyFollowers(this, users);
-		} catch (RuntimeException | IOException ex) {
+		} catch (RuntimeException ex) {
 			Logger.LogException("notifyFollowers() has thrown", ex);
 		}
 	}

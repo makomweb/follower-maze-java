@@ -8,11 +8,8 @@ import java.net.Socket;
 import java.util.Collection;
 import java.util.concurrent.ConcurrentHashMap;
 
-import com.maze.FollowEvent;
-import com.maze.UnfollowEvent;
-
 public class Users {
-	private final ConcurrentHashMap<Integer, User> users = new ConcurrentHashMap<Integer, User>();
+	private final ConcurrentHashMap<Integer, User> users = new ConcurrentHashMap<>();
 
 	public synchronized User get(int id) {
 		if (!users.containsKey(id)) {
@@ -42,7 +39,7 @@ public class Users {
 		to.consumeEvent(event);
 	}
 
-	public synchronized void unfollow(int fromUserId, int toUserId, UnfollowEvent event) {
+	public synchronized void unfollow(int fromUserId, int toUserId) {
 		User to = get(toUserId);
 		to.removeFollower(fromUserId);
 	}

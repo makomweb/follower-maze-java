@@ -1,7 +1,5 @@
 package com.maze;
 
-import java.io.IOException;
-
 public class PrivateMessageEvent extends Event {
 	private final int fromUserId;
 	private final int toUserId;
@@ -27,11 +25,7 @@ public class PrivateMessageEvent extends Event {
 
 	@Override
 	public void raiseEvent(Users users) {
-		try {
-			User user = users.get(toUserId);
-			user.consumeEvent(this);
-		} catch (IOException ex) {
-			Logger.LogException("concumeEvent() has thrown", ex);
-		}
+		User user = users.get(toUserId);
+		user.consumeEvent(this);
 	}
 }

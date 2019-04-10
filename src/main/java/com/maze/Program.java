@@ -21,7 +21,7 @@ public class Program {
 		}
 	};
 
-	public static void main(String[] args) throws IOException, InterruptedException {
+	public static void main(String[] args) throws IOException {
 		Runtime.getRuntime().addShutdownHook(shutdownHook);
 
 		ServerSocket userClientSocket = new ServerSocket(9099);
@@ -29,7 +29,7 @@ public class Program {
 		ServerSocket incomingEventSocket = new ServerSocket(9090);
 		incomingEventSocket.setSoTimeout(1000);
 
-		PriorityBlockingQueue<Event> eventQueue = new PriorityBlockingQueue<Event>();
+		PriorityBlockingQueue<Event> eventQueue = new PriorityBlockingQueue<>();
 		Users users = new Users();
 
 		ExecutorService threadPool = Executors.newCachedThreadPool();

@@ -4,9 +4,6 @@ import java.io.*;
 import java.net.Socket;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import com.maze.Logger;
-import com.maze.Users;
-
 public class UserClientProcessor implements Runnable {
 	private final Socket socket;
 	private final Users users;
