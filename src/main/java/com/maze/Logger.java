@@ -27,11 +27,11 @@ public class Logger {
 	}
 
 	public static void logReceivedEvent(Event event) {
-		System.out.println(String.format("Received event %s.", event));
+		//System.out.println(String.format("Received event %s.", event));
 	}
 
 	public static void logAcceptedUser(int id) {
-		System.out.println(String.format("Accepted user %d", id));
+		//System.out.println(String.format("Accepted user %d", id));
 	}
 
 	public static void logErrorNotifyUser(User follower) {
