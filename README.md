@@ -51,3 +51,7 @@ to run the application.
 The implementation was made on a Windows 10 notebook and I tested it on an EC2 AWS instance running Linux.
 
 The subfolder `dist` contains the executable jar file.
+
+## Scala
+
+The Scala implementation can be found under [https://github.com/makomweb/follower-maze-scala](https://github.com/makomweb/follower-maze-scala).
