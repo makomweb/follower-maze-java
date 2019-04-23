@@ -27,7 +27,7 @@ public class UserClientProcessor implements Runnable {
 	private void process() throws IOException {
 		InputStream stream = socket.getInputStream();
 		InputStreamReader streamReader = new InputStreamReader(stream);
-		final BufferedReader reader = new BufferedReader(streamReader);
+		BufferedReader reader = new BufferedReader(streamReader);
 
 		while (!wasCancelled.get()) {
 			String line = reader.readLine();
