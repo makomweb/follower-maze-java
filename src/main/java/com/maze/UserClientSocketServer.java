@@ -1,20 +1,20 @@
 package com.maze;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.concurrent.ExecutorService;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class UserClientSocketServer implements Runnable {
 	private final ServerSocket serverSocket;
-	private final ExecutorService threadPool;
 	private final UsersRepository users;
 	private final AtomicBoolean wasCancelled;
 
-	UserClientSocketServer(ServerSocket serverSocket, ExecutorService threadPool, UsersRepository users, AtomicBoolean wasCancelled) {
+	UserClientSocketServer(ServerSocket serverSocket, UsersRepository users, AtomicBoolean wasCancelled) {
 		this.serverSocket = serverSocket;
-		this.threadPool = threadPool;
 		this.users = users;
 		this.wasCancelled = wasCancelled;
 	}
@@ -24,11 +24,23 @@ public class UserClientSocketServer implements Runnable {
 		while (!wasCancelled.get()) {
 			try {
 				Socket socket = serverSocket.accept();
-				UserClientProcessor processor = new UserClientProcessor(socket, users);
-				threadPool.submit(processor);
+				process(socket);
 			} catch (IOException ex) {
 				Logger.logException("Caught exception while accepting client connections!", ex);
 			}
+		}
+	}
+
+	private void process(Socket socket) throws IOException {
+		InputStream stream = socket.getInputStream();
+		InputStreamReader streamReader = new InputStreamReader(stream);
+		BufferedReader reader = new BufferedReader(streamReader);
+
+		String line = reader.readLine();
+		if (line != null) {
+			int id = Integer.parseInt(line);
+			users.add(id, socket);
+			Logger.logAcceptedUser(id);
 		}
 	}
 }

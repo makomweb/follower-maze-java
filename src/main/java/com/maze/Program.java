@@ -35,7 +35,7 @@ public class Program {
 		ExecutorService threadPool = Executors.newCachedThreadPool();
 
 		IncomingEventSocketServer incomingEventsSocketServer = new IncomingEventSocketServer(incomingEventSocket, threadPool, eventQueue, wasCancelled);
-		UserClientSocketServer userClientSocketServer = new UserClientSocketServer(userClientSocket, threadPool, users, wasCancelled);
+		UserClientSocketServer userClientSocketServer = new UserClientSocketServer(userClientSocket, users, wasCancelled);
 		EventQueueProcessor eventQueueProcessor = new EventQueueProcessor(users, eventQueue, wasCancelled);
 
 		threadPool.submit(incomingEventsSocketServer);
