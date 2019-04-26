@@ -2,11 +2,10 @@ package com.maze;
 
 import com.maze.diagnostics.Logger;
 import com.maze.events.*;
+import com.maze.tools.BufferedReaderFrom;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -34,12 +33,8 @@ public class IncomingEventSocketServer implements Runnable {
 		}
 	}
 
-
 	private void process(Socket socket) throws IOException {
-		InputStream stream = socket.getInputStream();
-		InputStreamReader streamReader = new InputStreamReader(stream);
-		BufferedReader reader = new BufferedReader(streamReader);
-
+		BufferedReader reader = BufferedReaderFrom.Socket(socket);
 		while (!wasCancelled.get()) {
 			String line = reader.readLine();
 			if (line == null) {

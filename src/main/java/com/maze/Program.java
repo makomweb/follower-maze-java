@@ -1,6 +1,7 @@
 package com.maze;
 
 import com.maze.events.EventQueue;
+import com.maze.tools.ShutdownHook;
 import com.maze.users.UsersRepository;
 
 import java.io.IOException;

@@ -1,4 +1,4 @@
-package com.maze;
+package com.maze.tools;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
