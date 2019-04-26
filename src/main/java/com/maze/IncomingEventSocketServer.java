@@ -1,6 +1,9 @@
 package com.maze;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Queue;
@@ -9,13 +12,11 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 public class IncomingEventSocketServer implements Runnable {
 	private final ServerSocket serverSocket;
-	private final ExecutorService threadPool;
 	private final AtomicBoolean wasCancelled;
 	private final Queue<Event> eventQueue;
 
-	IncomingEventSocketServer(ServerSocket serverSocket, ExecutorService threadPool, Queue<Event> eventQueue, AtomicBoolean wasCancelled) {
+	IncomingEventSocketServer(ServerSocket serverSocket, Queue<Event> eventQueue, AtomicBoolean wasCancelled) {
 		this.serverSocket = serverSocket;
-		this.threadPool = threadPool;
 		this.wasCancelled = wasCancelled;
 		this.eventQueue = eventQueue;
 	}
@@ -25,11 +26,28 @@ public class IncomingEventSocketServer implements Runnable {
 		while (!wasCancelled.get()) {
 			try {
 				Socket socket = serverSocket.accept();
-				IncomingEventProcessor processor = new IncomingEventProcessor(socket, eventQueue, wasCancelled);
-				threadPool.submit(processor);
+				process(socket);
 			} catch (IOException ex) {
-				Logger.logException("Caught exception while accepting incoming events!", ex);
+				Logger.logException("Caught exception while processing incoming events!", ex);
 			}
+		}
+	}
+
+
+	private void process(Socket socket) throws IOException {
+		InputStream stream = socket.getInputStream();
+		InputStreamReader streamReader = new InputStreamReader(stream);
+		BufferedReader reader = new BufferedReader(streamReader);
+
+		while (!wasCancelled.get()) {
+			String line = reader.readLine();
+			if (line == null) {
+				break;
+			}
+
+			Event event = EventDeserializer.Deserialize(line);
+			Logger.logReceivedEvent(event);
+			eventQueue.add(event);
 		}
 	}
 }
