@@ -8,7 +8,7 @@ import java.net.Socket;
 import java.util.Collection;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class UsersRepository implements IUsersBrowser {
+public class UsersRepository implements IUsersBrowser, IUsersRepository {
 	private final ConcurrentHashMap<Integer, User> users = new ConcurrentHashMap<>();
 
 	public synchronized User get(int id) {

@@ -4,12 +4,12 @@ import java.util.Queue;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class EventQueueProcessor implements Runnable {
-	private final UsersRepository users;
+	private final IUsersBrowser users;
 	private final Queue<Event> eventQueue;
 	private final AtomicBoolean wasCancelled;
 	private int sequenceNumber = 1;
 
-	public EventQueueProcessor(UsersRepository users, Queue<Event> eventQueue, AtomicBoolean wasCancelled) {
+	public EventQueueProcessor(IUsersBrowser users, Queue<Event> eventQueue, AtomicBoolean wasCancelled) {
 		this.users = users;
 		this.eventQueue = eventQueue;
 		this.wasCancelled = wasCancelled;
