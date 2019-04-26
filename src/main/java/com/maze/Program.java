@@ -11,20 +11,9 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 public class Program {
 	private static final AtomicBoolean wasCancelled = new AtomicBoolean(false);
-	private static final Thread mainThread = Thread.currentThread();
-	private static final Thread shutdownHook = new Thread() {
-		public void run() {
-			wasCancelled.set(false);
-			try {
-				mainThread.join();
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-		}
-	};
 
 	public static void main(String[] args) throws IOException {
-		Runtime.getRuntime().addShutdownHook(shutdownHook);
+		Runtime.getRuntime().addShutdownHook(new ShutdownHook(wasCancelled, Thread.currentThread()));
 
 		ServerSocket userClientSocket = new ServerSocket(9099);
 		userClientSocket.setSoTimeout(1000);
