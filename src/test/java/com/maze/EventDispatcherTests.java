@@ -1,11 +1,12 @@
 package com.maze;
 
+import com.maze.events.*;
 import org.junit.Test;
 import java.util.*;
 import static org.junit.Assert.assertEquals;
 
 public class EventDispatcherTests {
-	private Queue<Event> incomingEvents = new PriorityQueue<Event>();
+	private EventQueue incomingEvents = new EventQueue();
 	private List<Event> rawEvents = new ArrayList<Event>() {
 		{
 			add(EventDeserializer.Deserialize("1|B|2|3"));
@@ -19,7 +20,7 @@ public class EventDispatcherTests {
 
 	public EventDispatcherTests() {
 		for (Event e : rawEvents) {
-			incomingEvents.add(e);
+			incomingEvents.enqueue(e);
 		}
 	}
 
@@ -33,7 +34,7 @@ public class EventDispatcherTests {
 				break;
 			}
 
-			Event event = incomingEvents.poll();
+			Event event = incomingEvents.dequeue();
 			collection.add(event);
 		}
 

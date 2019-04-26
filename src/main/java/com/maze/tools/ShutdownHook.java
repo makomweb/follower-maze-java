@@ -1,22 +1,29 @@
 package com.maze.tools;
 
-import java.util.concurrent.atomic.AtomicBoolean;
+import com.maze.diagnostics.Logger;
+
+import java.util.Collection;
 
 public class ShutdownHook extends Thread {
-    private final AtomicBoolean wasCancelled;
     private final Thread mainThread;
+    private final Collection<CancellationRunnable> runnables;
 
-    public ShutdownHook(AtomicBoolean wasCancelled, Thread mainThread) {
-        this.wasCancelled = wasCancelled;
+    public ShutdownHook(Thread mainThread, Collection<CancellationRunnable> runnables) {
         this.mainThread = mainThread;
+        this.runnables = runnables;
     }
 
     public void run() {
-        wasCancelled.set(false);
+        Logger.logShutdownInitiated();
+
+        runnables.forEach(r -> r.requestCancellation());
+
         try {
             mainThread.join();
         } catch (InterruptedException e) {
             e.printStackTrace();
+        } finally {
+            Logger.logShutdownFinished();
         }
     }
 }

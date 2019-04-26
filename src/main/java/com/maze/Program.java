@@ -6,15 +6,12 @@ import com.maze.users.UsersRepository;
 
 import java.io.IOException;
 import java.net.ServerSocket;
+import java.util.Arrays;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 public class Program {
-	private static final AtomicBoolean wasCancelled = new AtomicBoolean(false);
-
 	public static void main(String[] args) throws IOException {
-		Runtime.getRuntime().addShutdownHook(new ShutdownHook(wasCancelled, Thread.currentThread()));
 
 		ServerSocket userClientSocket = new ServerSocket(9099);
 		userClientSocket.setSoTimeout(1000);
@@ -24,11 +21,14 @@ public class Program {
 		EventQueue eventQueue = new EventQueue();
 		UsersRepository users = new UsersRepository();
 
-		IncomingEventSocketServer incomingEventsSocketServer = new IncomingEventSocketServer(incomingEventSocket, eventQueue, wasCancelled);
-		UserClientSocketServer userClientSocketServer = new UserClientSocketServer(userClientSocket, users, wasCancelled);
-		EventQueueProcessor eventQueueProcessor = new EventQueueProcessor(users, eventQueue, wasCancelled);
+		IncomingEventSocketServer incomingEventsSocketServer = new IncomingEventSocketServer(incomingEventSocket, eventQueue);
+		UserClientSocketServer userClientSocketServer = new UserClientSocketServer(userClientSocket, users);
+		EventQueueProcessor eventQueueProcessor = new EventQueueProcessor(users, eventQueue);
 
-		ExecutorService threadPool = Executors.newCachedThreadPool();
+		Runtime.getRuntime().addShutdownHook(new ShutdownHook(Thread.currentThread(),
+				Arrays.asList(incomingEventsSocketServer, userClientSocketServer, eventQueueProcessor)));
+
+		ExecutorService threadPool = Executors.newFixedThreadPool(4);
 		threadPool.submit(incomingEventsSocketServer);
 		threadPool.submit(userClientSocketServer);
 		threadPool.submit(eventQueueProcessor);

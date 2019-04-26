@@ -3,25 +3,23 @@ package com.maze;
 import com.maze.diagnostics.Logger;
 import com.maze.events.Event;
 import com.maze.events.IEventQueue;
+import com.maze.tools.CancellationRunnable;
 import com.maze.users.IUsersBrowser;
 
-import java.util.concurrent.atomic.AtomicBoolean;
-
-public class EventQueueProcessor implements Runnable {
+public class EventQueueProcessor extends CancellationRunnable {
 	private final IUsersBrowser users;
 	private final IEventQueue eventQueue;
-	private final AtomicBoolean wasCancelled;
 	private int sequenceNumber = 1;
 
-	public EventQueueProcessor(IUsersBrowser users, IEventQueue eventQueue, AtomicBoolean wasCancelled) {
+	public EventQueueProcessor(IUsersBrowser users, IEventQueue eventQueue) {
 		this.users = users;
 		this.eventQueue = eventQueue;
-		this.wasCancelled = wasCancelled;
 	}
 
 	@Override
 	public void run() {
-		while (!wasCancelled.get()) {
+		Logger.logEventQueueProcessingStarted();
+		while (!cancellationRequested) {
 			Event event = eventQueue.peek();
 			if (event != null && event.sequenceNumber <= sequenceNumber) {
 				event = eventQueue.dequeue();
@@ -34,5 +32,7 @@ public class EventQueueProcessor implements Runnable {
 				}
 			}
 		}
+
+		Logger.logEventQueueProcessingFinished();
 	}
 }

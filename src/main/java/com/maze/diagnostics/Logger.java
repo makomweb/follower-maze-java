@@ -23,14 +23,46 @@ public class Logger {
 	}
 
 	public static void logExceptionProcessingIncomingEvents(IOException exception) {
-		System.err.println(String.format("Exception caught while processing incoming events: %s", exception));
+		//System.err.println(String.format("Exception caught while processing incoming events: %s", exception));
 	}
 
 	public static void logExceptionProcessingClientConnections(IOException exception) {
-		System.err.println(String.format("Exception caught while processing client connections: %s", exception));
+		//System.err.println(String.format("Exception caught while processing client connections: %s", exception));
 	}
 
 	public static void logExceptionNotifyFollowers(RuntimeException exception) {
-		System.err.println(String.format("Exception caught while notifying followers: %s", exception));
+		//System.err.println(String.format("Exception caught while notifying followers: %s", exception));
+	}
+
+	public static void logEventQueueProcessingStarted() {
+		System.out.println("Start processing event queue.");
+	}
+
+	public static void logShutdownInitiated() {
+		System.out.println("Shutting down ...");
+	}
+
+	public static void logShutdownFinished() {
+		System.out.println("Shutdown finished.");
+	}
+
+	public static void logStartAcceptingUserConnections() {
+		System.out.println("Start accepting user connections.");
+	}
+
+	public static void logStartProcessingIncomingEvents() {
+		System.out.println("Start processing incoming events.");
+	}
+
+	public static void logEventQueueProcessingFinished() {
+		System.out.println("Event queue processing finished.");
+	}
+
+	public static void logProcessingIncomingEventsFinished() {
+		System.out.println("Event processing incoming events finished.");
+	}
+
+	public static void logAcceptingUserConnectionsFinished() {
+		System.out.println("Accepting user connections finished.");
 	}
 }

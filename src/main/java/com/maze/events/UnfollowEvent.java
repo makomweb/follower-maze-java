@@ -4,8 +4,8 @@ import com.maze.users.IUsersBrowser;
 import com.maze.users.User;
 
 public class UnfollowEvent extends Event {
-	private final int fromUserId;
-	private final int toUserId;
+	public final int fromUserId;
+	public final int toUserId;
 
 	public UnfollowEvent(int sequenceNumber, int fromUserId, int toUserId) {
 		super(sequenceNumber);

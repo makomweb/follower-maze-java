@@ -5,7 +5,7 @@ import com.maze.users.IUsersBrowser;
 import com.maze.users.User;
 
 public class StatusUpdateEvent extends Event {
-	private final int fromUserId;
+	public final int fromUserId;
 
 	public StatusUpdateEvent(int sequenceNumber, int fromUserId) {
 		super(sequenceNumber);

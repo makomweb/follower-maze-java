@@ -5,8 +5,8 @@ import com.maze.users.IUsersBrowser;
 import com.maze.users.User;
 
 public class FollowEvent extends Event {
-	private final int fromUserId;
-	private final int toUserId;
+	public final int fromUserId;
+	public final int toUserId;
 
 	public FollowEvent(int sequenceNumber, int fromUserId, int toUserId) {
 		super(sequenceNumber);

@@ -1,5 +1,6 @@
 package com.maze;
 
+import com.maze.events.*;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -16,19 +17,19 @@ public class DeserializeFollowEventTests {
 	@Test
 	public void Providing_sequence_number_should_succeed() {
 		FollowEvent event = (FollowEvent) EventDeserializer.Deserialize(raw);
-		assertEquals(666, event.getSequenceNumber());
+		assertEquals(666, event.sequenceNumber);
 	}
 
 	@Test
 	public void Providing_from_user_id_should_succeed() {
 		FollowEvent event = (FollowEvent) EventDeserializer.Deserialize(raw);
-		assertEquals(60, event.getFromUserId());
+		assertEquals(60, event.fromUserId);
 	}
 
 	@Test
 	public void Providing_to_user_id_should_succeed() {
 		FollowEvent event = (FollowEvent) EventDeserializer.Deserialize(raw);
-		assertEquals(50, event.getToUserId());
+		assertEquals(50, event.toUserId);
 	}
 
 	@Test

@@ -1,5 +1,6 @@
 package com.maze;
 
+import com.maze.events.*;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -16,7 +17,7 @@ public class DeserializeBroadcastEventTests {
 	@Test
 	public void Providing_sequence_number_should_succeed() {
 		Event event = EventDeserializer.Deserialize(raw);
-		assertEquals(542532, event.getSequenceNumber());
+		assertEquals(542532, event.sequenceNumber);
 	}
 
 	@Test

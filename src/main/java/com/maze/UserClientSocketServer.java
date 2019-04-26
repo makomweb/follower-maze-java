@@ -2,28 +2,27 @@ package com.maze;
 
 import com.maze.diagnostics.Logger;
 import com.maze.tools.BufferedReaderFrom;
+import com.maze.tools.CancellationRunnable;
 import com.maze.users.IUsersRepository;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.concurrent.atomic.AtomicBoolean;
 
-public class UserClientSocketServer implements Runnable {
+public class UserClientSocketServer extends CancellationRunnable {
 	private final ServerSocket serverSocket;
 	private final IUsersRepository users;
-	private final AtomicBoolean wasCancelled;
 
-	UserClientSocketServer(ServerSocket serverSocket, IUsersRepository users, AtomicBoolean wasCancelled) {
+	UserClientSocketServer(ServerSocket serverSocket, IUsersRepository users) {
 		this.serverSocket = serverSocket;
 		this.users = users;
-		this.wasCancelled = wasCancelled;
 	}
 
 	@Override
 	public void run() {
-		while (!wasCancelled.get()) {
+		Logger.logStartAcceptingUserConnections();
+		while (!cancellationRequested) {
 			try {
 				Socket socket = serverSocket.accept();
 				process(socket);
@@ -31,6 +30,7 @@ public class UserClientSocketServer implements Runnable {
 				Logger.logExceptionProcessingClientConnections(ex);
 			}
 		}
+		Logger.logAcceptingUserConnectionsFinished();
 	}
 
 	private void process(Socket socket) throws IOException {
