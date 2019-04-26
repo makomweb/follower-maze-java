@@ -29,7 +29,6 @@ public class UsersRepository implements IUsersBrowser, IUsersRepository {
 		OutputStream stream = socket.getOutputStream();
 		OutputStreamWriter streamWriter = new OutputStreamWriter(stream);
 		PrintWriter writer = new PrintWriter(streamWriter);
-
 		users.put(id, new User(id, writer));
 	}
 }

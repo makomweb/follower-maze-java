@@ -29,15 +29,14 @@ public class Program {
 		ServerSocket incomingEventSocket = new ServerSocket(9090);
 		incomingEventSocket.setSoTimeout(1000);
 
-		PriorityBlockingQueue<Event> eventQueue = new PriorityBlockingQueue<>();
+		EventQueue eventQueue = new EventQueue();
 		UsersRepository users = new UsersRepository();
-
-		ExecutorService threadPool = Executors.newCachedThreadPool();
 
 		IncomingEventSocketServer incomingEventsSocketServer = new IncomingEventSocketServer(incomingEventSocket, eventQueue, wasCancelled);
 		UserClientSocketServer userClientSocketServer = new UserClientSocketServer(userClientSocket, users, wasCancelled);
 		EventQueueProcessor eventQueueProcessor = new EventQueueProcessor(users, eventQueue, wasCancelled);
 
+		ExecutorService threadPool = Executors.newCachedThreadPool();
 		threadPool.submit(incomingEventsSocketServer);
 		threadPool.submit(userClientSocketServer);
 		threadPool.submit(eventQueueProcessor);

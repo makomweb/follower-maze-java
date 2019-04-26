@@ -13,9 +13,9 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class IncomingEventSocketServer implements Runnable {
 	private final ServerSocket serverSocket;
 	private final AtomicBoolean wasCancelled;
-	private final Queue<Event> eventQueue;
+	private final IEventQueue eventQueue;
 
-	IncomingEventSocketServer(ServerSocket serverSocket, Queue<Event> eventQueue, AtomicBoolean wasCancelled) {
+	IncomingEventSocketServer(ServerSocket serverSocket, IEventQueue eventQueue, AtomicBoolean wasCancelled) {
 		this.serverSocket = serverSocket;
 		this.wasCancelled = wasCancelled;
 		this.eventQueue = eventQueue;
@@ -47,7 +47,7 @@ public class IncomingEventSocketServer implements Runnable {
 
 			Event event = EventDeserializer.Deserialize(line);
 			Logger.logReceivedEvent(event);
-			eventQueue.add(event);
+			eventQueue.enqueue(event);
 		}
 	}
 }
