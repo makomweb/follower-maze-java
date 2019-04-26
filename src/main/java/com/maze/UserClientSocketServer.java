@@ -26,7 +26,7 @@ public class UserClientSocketServer implements Runnable {
 				Socket socket = serverSocket.accept();
 				process(socket);
 			} catch (IOException ex) {
-				Logger.logException("Caught exception while accepting client connections!", ex);
+				Logger.logException("Caught exception while processing client connections!", ex);
 			}
 		}
 	}
