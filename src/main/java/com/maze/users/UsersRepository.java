@@ -1,5 +1,6 @@
 package com.maze.users;
 
+import com.maze.diagnostics.Logger;
 import com.maze.tools.PrintWriterFrom;
 
 import java.io.IOException;
@@ -10,8 +11,6 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class UsersRepository implements com.maze.users.IUsersBrowser, IUsersRepository {
 	private final ConcurrentHashMap<Integer, User> users = new ConcurrentHashMap<>();
-
-
 
 	public synchronized User get(int id) {
 		if (!users.containsKey(id)) {
@@ -29,6 +28,8 @@ public class UsersRepository implements com.maze.users.IUsersBrowser, IUsersRepo
 
 	public synchronized void add(int id, Socket socket) throws IOException {
 		PrintWriter writer = PrintWriterFrom.Socket(socket);
-		users.put(id, new User(id, writer));
+		User user = new User(id, writer);
+		users.put(id, user);
+		Logger.logUserAdded(user);
 	}
 }

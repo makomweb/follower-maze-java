@@ -26,12 +26,8 @@ public class User implements Comparable<User> {
 	}
 
 	public boolean consumeEvent(Event event) {
-		if (writer != null) {
-			writer.println(event);
-			return !writer.checkError();
-		}
-
-		return false;
+		writer.println(event);
+		return !writer.checkError();
 	}
 
 	public Collection<Integer> getFollowerIds () {
@@ -44,4 +40,9 @@ public class User implements Comparable<User> {
 
 	@Override
 	public int compareTo(User other) { return id.compareTo(other.id); }
+
+	@Override
+	public String toString() {
+		return String.format("%d", id);
+	}
 }

@@ -30,7 +30,7 @@ public class EventQueueProcessor implements Runnable {
 				try {
 					event.raiseEvent(users);
 				} catch (RuntimeException ex) {
-					Logger.logException("raiseEvent() has thrown", ex);
+					Logger.logExceptionRaisingEvent(ex);
 				}
 			}
 		}

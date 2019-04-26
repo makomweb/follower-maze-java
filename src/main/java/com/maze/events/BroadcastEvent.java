@@ -18,7 +18,7 @@ public class BroadcastEvent extends Event {
 	public void raiseEvent(IUsersBrowser users) {
 		for (User user : users.getAll()) {
 			user.consumeEvent(this);
+			Logger.logEventConsumed(user, this);
 		}
-		Logger.logEvent(this);
 	}
 }

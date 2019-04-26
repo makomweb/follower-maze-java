@@ -1,5 +1,6 @@
 package com.maze.events;
 
+import com.maze.diagnostics.Logger;
 import com.maze.users.IUsersBrowser;
 import com.maze.users.User;
 
@@ -23,5 +24,6 @@ public class FollowEvent extends Event {
 		User to = users.get(toUserId);
 		to.addFollower(fromUserId);
 		to.consumeEvent(this);
+		Logger.logEventConsumed(to, this);
 	}
 }

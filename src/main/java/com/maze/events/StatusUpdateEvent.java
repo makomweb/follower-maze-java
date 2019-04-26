@@ -22,9 +22,8 @@ public class StatusUpdateEvent extends Event {
 		try {
 			User from = users.get(fromUserId);
 			notifyFollowers(from, users);
-			Logger.logEvent(this);
 		} catch (RuntimeException ex) {
-			Logger.logException("notifyFollowers() has thrown", ex);
+			Logger.logExceptionNotifyFollowers(ex);
 		}
 	}
 
@@ -32,8 +31,8 @@ public class StatusUpdateEvent extends Event {
 		for (Integer id : from.getFollowerIds()) {
 			User follower = users.get(id);
 			boolean success = follower.consumeEvent(this);
+			Logger.logEventConsumed(follower, this);
 			if (!success) {
-				Logger.logErrorNotifyUser(follower);
 				from.removeFollower(follower.getId());
 			}
 		}

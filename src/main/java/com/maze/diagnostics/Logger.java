@@ -3,41 +3,34 @@ package com.maze.diagnostics;
 import com.maze.events.*;
 import com.maze.users.User;
 
+import java.io.IOException;
+
 public class Logger {
-	public static void logEvent(FollowEvent event) {
-		//System.out.println(String.format("User %d started following %d.", event.getToUserId(), event.getFromUserId()));
-	}
-
-	public static void logEvent(UnfollowEvent event) {
-		//System.out.println(String.format("User %d stopped following %d.", event.getToUserId(), event.getFromUserId()));
-	}
-
-	public static void logEvent(BroadcastEvent event) {
-		System.out.println("Broadcast event.");
-	}
-
-	public static void logEvent(PrivateMessageEvent event) {
-		//System.out.println(String.format("User %d has sent private message to %d.", event.getToUserId(), event.getFromUserId()));
-	}
-
-	public static void logEvent(StatusUpdateEvent event) {
-		//System.out.println(String.format("User %d has requested a status update from the followers.", event.getFromUserId()));
-	}
-
-	public static void logException(String message, Exception ex) {
-		System.err.println(message);
-		System.err.println(ex);
+	public static void logEventConsumed(User user, Event event) {
+		//System.out.println(String.format("User %s has consumed event %s.", user, event));
 	}
 
 	public static void logReceivedEvent(Event event) {
 		//System.out.println(String.format("Received event %s.", event));
 	}
 
-	public static void logAcceptedUser(int id) {
-		//System.out.println(String.format("Accepted user %d", id));
+	public static void logUserAdded(User user) {
+		System.out.println(String.format("Accepted user %s", user));
 	}
 
-	public static void logErrorNotifyUser(User follower) {
-		//System.out.println(String.format("Error while notifying follower! Removing follower %d", follower.getId()));
+	public static void logExceptionRaisingEvent(RuntimeException exception) {
+		System.err.println(String.format("Exception caught while raising event: %s", exception));
+	}
+
+	public static void logExceptionProcessingIncomingEvents(IOException exception) {
+		System.err.println(String.format("Exception caught while processing incoming events: %s", exception));
+	}
+
+	public static void logExceptionProcessingClientConnections(IOException exception) {
+		System.err.println(String.format("Exception caught while processing client connections: %s", exception));
+	}
+
+	public static void logExceptionNotifyFollowers(RuntimeException exception) {
+		System.err.println(String.format("Exception caught while notifying followers: %s", exception));
 	}
 }

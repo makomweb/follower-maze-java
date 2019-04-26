@@ -28,7 +28,7 @@ public class UserClientSocketServer implements Runnable {
 				Socket socket = serverSocket.accept();
 				process(socket);
 			} catch (IOException ex) {
-				Logger.logException("Caught exception while processing client connections!", ex);
+				Logger.logExceptionProcessingClientConnections(ex);
 			}
 		}
 	}
@@ -39,7 +39,6 @@ public class UserClientSocketServer implements Runnable {
 		if (line != null) {
 			int id = Integer.parseInt(line);
 			users.add(id, socket);
-			Logger.logAcceptedUser(id);
 		}
 	}
 }

@@ -1,5 +1,6 @@
 package com.maze.events;
 
+import com.maze.diagnostics.Logger;
 import com.maze.users.IUsersBrowser;
 import com.maze.users.User;
 
@@ -22,5 +23,6 @@ public class PrivateMessageEvent extends Event {
 	public void raiseEvent(IUsersBrowser users) {
 		User user = users.get(toUserId);
 		user.consumeEvent(this);
+		Logger.logEventConsumed(user, this);
 	}
 }

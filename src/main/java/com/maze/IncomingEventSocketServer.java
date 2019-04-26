@@ -28,7 +28,7 @@ public class IncomingEventSocketServer implements Runnable {
 				Socket socket = serverSocket.accept();
 				process(socket);
 			} catch (IOException ex) {
-				Logger.logException("Caught exception while processing incoming events!", ex);
+				Logger.logExceptionProcessingIncomingEvents(ex);
 			}
 		}
 	}
