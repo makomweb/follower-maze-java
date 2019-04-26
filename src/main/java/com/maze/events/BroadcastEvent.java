@@ -1,4 +1,8 @@
-package com.maze;
+package com.maze.events;
+
+import com.maze.diagnostics.Logger;
+import com.maze.users.IUsersBrowser;
+import com.maze.users.User;
 
 public class BroadcastEvent extends Event {
 	public BroadcastEvent(int sequenceNumber) {

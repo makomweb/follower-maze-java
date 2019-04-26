@@ -1,4 +1,6 @@
-package com.maze;
+package com.maze.users;
+
+import com.maze.events.Event;
 
 import java.io.PrintWriter;
 import java.util.Collection;

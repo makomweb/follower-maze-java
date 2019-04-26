@@ -1,4 +1,4 @@
-package com.maze;
+package com.maze.events;
 
 import java.util.concurrent.PriorityBlockingQueue;
 

@@ -1,4 +1,4 @@
-package com.maze;
+package com.maze.users;
 
 import java.util.Collection;
 

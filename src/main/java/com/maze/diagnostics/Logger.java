@@ -1,4 +1,7 @@
-package com.maze;
+package com.maze.diagnostics;
+
+import com.maze.events.*;
+import com.maze.users.User;
 
 public class Logger {
 	public static void logEvent(FollowEvent event) {

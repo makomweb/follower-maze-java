@@ -1,4 +1,4 @@
-package com.maze;
+package com.maze.events;
 
 public interface IEventQueue {
     void enqueue(Event event);

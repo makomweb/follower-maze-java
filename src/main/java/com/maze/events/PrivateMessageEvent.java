@@ -1,4 +1,7 @@
-package com.maze;
+package com.maze.events;
+
+import com.maze.users.IUsersBrowser;
+import com.maze.users.User;
 
 public class PrivateMessageEvent extends Event {
 	private final int fromUserId;

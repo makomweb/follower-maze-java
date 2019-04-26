@@ -1,4 +1,4 @@
-package com.maze;
+package com.maze.events;
 
 public class InvalidEventTypeException extends RuntimeException {
 	private static final long serialVersionUID = -2846220643285984423L;

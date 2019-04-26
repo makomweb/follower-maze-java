@@ -1,4 +1,4 @@
-package com.maze;
+package com.maze.events;
 
 public class EventDeserializer {
 	public static Event Deserialize(String raw) {

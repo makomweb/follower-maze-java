@@ -1,4 +1,4 @@
-package com.maze;
+package com.maze.users;
 
 import java.io.IOException;
 import java.net.Socket;

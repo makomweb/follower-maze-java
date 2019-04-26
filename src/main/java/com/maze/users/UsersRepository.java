@@ -1,4 +1,4 @@
-package com.maze;
+package com.maze.users;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -8,7 +8,7 @@ import java.net.Socket;
 import java.util.Collection;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class UsersRepository implements IUsersBrowser, IUsersRepository {
+public class UsersRepository implements com.maze.users.IUsersBrowser, IUsersRepository {
 	private final ConcurrentHashMap<Integer, User> users = new ConcurrentHashMap<>();
 
 	public synchronized User get(int id) {

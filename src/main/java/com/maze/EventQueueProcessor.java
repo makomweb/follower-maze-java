@@ -1,5 +1,10 @@
 package com.maze;
 
+import com.maze.diagnostics.Logger;
+import com.maze.events.Event;
+import com.maze.events.IEventQueue;
+import com.maze.users.IUsersBrowser;
+
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class EventQueueProcessor implements Runnable {
