@@ -10,22 +10,15 @@ public class FollowEvent extends Event {
 		this.toUserId = toUserId;
 	}
 
-	public int getFromUserId() {
-		return fromUserId;
-	}
-
-	public int getToUserId() {
-		return toUserId;
-	}
-
 	@Override
 	public String toString() {
-		return String.format("%d|F|%d|%d", getSequenceNumber(), getFromUserId(), getToUserId());
+		return String.format("%d|F|%d|%d", sequenceNumber, fromUserId, toUserId);
 	}
 
 	@Override
-	public void raiseEvent(Users users) {
-		users.follow(fromUserId, toUserId, this);
-		Logger.logEvent(this);
+	public void raiseEvent(IUsersBrowser users) {
+		User to = users.get(toUserId);
+		to.addFollower(fromUserId);
+		to.consumeEvent(this);
 	}
 }

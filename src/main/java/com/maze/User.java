@@ -1,6 +1,7 @@
 package com.maze;
 
 import java.io.PrintWriter;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -22,17 +23,6 @@ public class User implements Comparable<User> {
 		followerIds.remove(followerId);
 	}
 
-	public void notifyFollowers(Event event, Users users) {
-		for (Integer id : followerIds) {
-			User follower = users.get(id);
-			boolean success = follower.consumeEvent(event);
-			if (!success) {
-				Logger.logErrorNotifyUser(follower);
-				followerIds.remove(follower.getId());
-			}
-		}
-	}
-
 	public boolean consumeEvent(Event event) {
 		if (writer != null) {
 			writer.println(event);
@@ -42,7 +32,13 @@ public class User implements Comparable<User> {
 		return false;
 	}
 
-	public Integer getId() { return id; }
+	public Collection<Integer> getFollowerIds () {
+		return followerIds;
+	}
+
+	public Integer getId() {
+		return id;
+	}
 
 	@Override
 	public int compareTo(User other) { return id.compareTo(other.id); }

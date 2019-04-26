@@ -8,7 +8,7 @@ import java.net.Socket;
 import java.util.Collection;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class Users {
+public class UsersRepository implements IUsersBrowser {
 	private final ConcurrentHashMap<Integer, User> users = new ConcurrentHashMap<>();
 
 	public synchronized User get(int id) {
@@ -31,16 +31,5 @@ public class Users {
 		PrintWriter writer = new PrintWriter(streamWriter);
 
 		users.put(id, new User(id, writer));
-	}
-
-	public synchronized void follow(int fromUserId, int toUserId, FollowEvent event) {
-		User to = get(toUserId);
-		to.addFollower(fromUserId);
-		to.consumeEvent(event);
-	}
-
-	public synchronized void unfollow(int fromUserId, int toUserId) {
-		User to = get(toUserId);
-		to.removeFollower(fromUserId);
 	}
 }

@@ -10,22 +10,14 @@ public class UnfollowEvent extends Event {
 		this.toUserId = toUserId;
 	}
 
-	public int getFromUserId() {
-		return fromUserId;
-	}
-
-	public int getToUserId() {
-		return toUserId;
-	}
-
 	@Override
 	public String toString() {
-		return String.format("%d|U|%d|%d", getSequenceNumber(), getFromUserId(), getToUserId());
+		return String.format("%d|U|%d|%d", sequenceNumber, fromUserId, toUserId);
 	}
 
 	@Override
-	public void raiseEvent(Users users) {
-		users.unfollow(fromUserId, toUserId);
-		Logger.logEvent(this);
+	public void raiseEvent(IUsersBrowser users) {
+		User to = users.get(toUserId);
+		to.removeFollower(fromUserId);
 	}
 }

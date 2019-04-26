@@ -8,23 +8,30 @@ public class StatusUpdateEvent extends Event {
 		this.fromUserId = fromUserId;
 	}
 
-	public int getFromUserId() {
-		return fromUserId;
-	}
-
 	@Override
 	public String toString() {
-		return String.format("%d|S|%d", getSequenceNumber(), getFromUserId());
+		return String.format("%d|S|%d", sequenceNumber, fromUserId);
 	}
 
 	@Override
-	public void raiseEvent(Users users) {
+	public void raiseEvent(IUsersBrowser users) {
 		try {
-			User user = users.get(fromUserId);
-			user.notifyFollowers(this, users);
+			User from = users.get(fromUserId);
+			notifyFollowers(from, users);
 			Logger.logEvent(this);
 		} catch (RuntimeException ex) {
 			Logger.logException("notifyFollowers() has thrown", ex);
+		}
+	}
+
+	private void notifyFollowers(User from, IUsersBrowser users) {
+		for (Integer id : from.getFollowerIds()) {
+			User follower = users.get(id);
+			boolean success = follower.consumeEvent(this);
+			if (!success) {
+				Logger.logErrorNotifyUser(follower);
+				from.removeFollower(follower.getId());
+			}
 		}
 	}
 }

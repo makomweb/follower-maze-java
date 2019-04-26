@@ -10,23 +10,14 @@ public class PrivateMessageEvent extends Event {
 		this.toUserId = toUserId;
 	}
 
-	public int getFromUserId() {
-		return fromUserId;
-	}
-
-	public int getToUserId() {
-		return toUserId;
-	}
-
 	@Override
 	public String toString() {
-		return String.format("%d|P|%d|%d", getSequenceNumber(), getFromUserId(), getToUserId());
+		return String.format("%d|P|%d|%d", sequenceNumber, fromUserId, toUserId);
 	}
 
 	@Override
-	public void raiseEvent(Users users) {
+	public void raiseEvent(IUsersBrowser users) {
 		User user = users.get(toUserId);
 		user.consumeEvent(this);
-		Logger.logEvent(this);
 	}
 }

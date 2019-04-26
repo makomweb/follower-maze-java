@@ -2,17 +2,14 @@ package com.maze;
 
 import java.io.*;
 import java.net.Socket;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 public class UserClientProcessor implements Runnable {
 	private final Socket socket;
-	private final Users users;
-	private final AtomicBoolean wasCancelled;
+	private final UsersRepository users;
 
-	public UserClientProcessor(Socket socket, Users users, AtomicBoolean wasCancelled) {
+	public UserClientProcessor(Socket socket, UsersRepository users) {
 		this.socket = socket;
 		this.users = users;
-		this.wasCancelled = wasCancelled;
 	}
 
 	@Override
@@ -20,7 +17,7 @@ public class UserClientProcessor implements Runnable {
 		try {
 			process();
 		} catch (IOException ex) {
-			Logger.logException("Caught exception while processing incoming events!", ex);
+			Logger.logException("Caught exception while accepting user client!", ex);
 		}
 	}
 
@@ -29,19 +26,11 @@ public class UserClientProcessor implements Runnable {
 		InputStreamReader streamReader = new InputStreamReader(stream);
 		BufferedReader reader = new BufferedReader(streamReader);
 
-		while (!wasCancelled.get()) {
-			String line = reader.readLine();
-			if (line == null) {
-				break;
-			}
-
-			try {
-				int id = Integer.parseInt(line);
-				users.add(id, socket);
-				Logger.logAcceptedUser(id);
-			} catch (RuntimeException ex) {
-				Logger.logException("users.add() has thrown", ex);
-			}
+		String line = reader.readLine();
+		if (line != null) {
+			int id = Integer.parseInt(line);
+			users.add(id, socket);
+			Logger.logAcceptedUser(id);
 		}
 	}
 }

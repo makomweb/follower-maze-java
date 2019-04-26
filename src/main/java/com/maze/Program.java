@@ -30,7 +30,7 @@ public class Program {
 		incomingEventSocket.setSoTimeout(1000);
 
 		PriorityBlockingQueue<Event> eventQueue = new PriorityBlockingQueue<>();
-		Users users = new Users();
+		UsersRepository users = new UsersRepository();
 
 		ExecutorService threadPool = Executors.newCachedThreadPool();
 

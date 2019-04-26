@@ -7,11 +7,11 @@ public class BroadcastEvent extends Event {
 
 	@Override
 	public String toString() {
-		return String.format("%d|B", getSequenceNumber());
+		return String.format("%d|B", sequenceNumber);
 	}
 
 	@Override
-	public void raiseEvent(Users users) {
+	public void raiseEvent(IUsersBrowser users) {
 		for (User user : users.getAll()) {
 			user.consumeEvent(this);
 		}
