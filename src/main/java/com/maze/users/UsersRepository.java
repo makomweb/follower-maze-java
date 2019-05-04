@@ -4,12 +4,12 @@ import com.maze.diagnostics.Logger;
 import com.maze.tools.PrintWriterFrom;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.OutputStream;
 import java.net.Socket;
 import java.util.Collection;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class UsersRepository implements com.maze.users.IUsersBrowser, IUsersRepository {
+public class UsersRepository implements IUsersBrowser, IUsersRepository {
 	private final ConcurrentHashMap<Integer, User> users = new ConcurrentHashMap<>();
 
 	public User get(int id) {
@@ -27,8 +27,11 @@ public class UsersRepository implements com.maze.users.IUsersBrowser, IUsersRepo
 	}
 
 	public void add(int id, Socket socket) throws IOException {
-		PrintWriter writer = PrintWriterFrom.Socket(socket);
-		User user = new User(id, writer);
+		add(id, socket.getOutputStream());
+	}
+
+	public void add(int id, OutputStream stream) {
+		User user = new User(id, PrintWriterFrom.Stream(stream));
 		users.put(id, user);
 		Logger.logUserAdded(user);
 	}
