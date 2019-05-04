@@ -11,6 +11,10 @@ public class PrintWriterFrom  {
 	}
 
 	public static PrintWriter NullStream() {
-		return new PrintWriter(new NullStream());
+		return FromStream(new NullStream());
+	}
+
+	public static PrintWriter FromStream(OutputStream stream) {
+		return new PrintWriter(stream);
 	}
 }
