@@ -20,19 +20,29 @@ public class EventQueueProcessor extends CancellationRunnable {
 	public void run() {
 		Logger.logEventQueueProcessingStarted();
 		while (!cancellationRequested) {
-			Event event = eventQueue.peek();
-			if (event != null && event.sequenceNumber <= sequenceNumber) {
-				event = eventQueue.dequeue();
-				sequenceNumber++;
-
-				try {
-					event.raiseEvent(users);
-				} catch (RuntimeException ex) {
-					Logger.logExceptionRaisingEvent(ex);
-				}
-			}
+			process();
 		}
 
 		Logger.logEventQueueProcessingFinished();
+	}
+
+	public void processQueue() {
+		while (eventQueue.peek() != null) {
+			process();
+		}
+	}
+
+	private void process() {
+		Event event = eventQueue.peek();
+		if (event != null && event.sequenceNumber <= sequenceNumber) {
+			event = eventQueue.dequeue();
+			sequenceNumber++;
+
+			try {
+				event.raiseEvent(users);
+			} catch (RuntimeException ex) {
+				Logger.logExceptionRaisingEvent(ex);
+			}
+		}
 	}
 }
